@@ -6,7 +6,7 @@ services:
     environment:
       POSTGRES_USER: docker
       POSTGRES_PASSWORD: docker
-      POSTGRES_DB: rewrite
+      POSTGRES_DB: neochat
     volumes:
       - pgdata:/var/lib/postgresql/pgdata
     
@@ -18,14 +18,10 @@ services:
       memlock: -1
     volumes:
       - dragonflydata:/data
-    environment:
-      REDIS_PASSWORD: ${REDIS_PASSWORD:-redis_password}
     command:
       [
         "--proactor_threads=2",
         "--maxmemory=600mb",
-        "--requirepass=${REDIS_PASSWORD:-redis_password}",
-        "--cluster_mode=emulated",
         "--lock_on_hashtags"
       ]
 
