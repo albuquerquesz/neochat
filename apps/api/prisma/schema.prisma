@@ -33,4 +33,17 @@ model Sessions {
 
 model Chat {
   id String @id
+
+  @@map("chats")
+}
+
+model Messages {
+  id       String @id
+  chatId   String
+  senderId String
+  content  String
+
+  sender User @relation(fields: [senderId], references: [id])
+
+  @@map("messages")
 }
