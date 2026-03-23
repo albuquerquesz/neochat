@@ -11,3 +11,26 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+model User {
+  id       String     @id
+  name     String
+  email    String     @unique
+  sessions Sessions[]
+
+  @@map("users")
+}
+
+model Sessions {
+  id     String @id
+  userId String
+  hash   String
+  ip     String
+  user   User   @relation(fields: [userId], references: [id])
+
+  @@map("sessions")
+}
+
+model Chat {
+  id String @id
+}
