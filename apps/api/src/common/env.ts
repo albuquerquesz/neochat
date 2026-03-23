@@ -1,6 +1,6 @@
 import z from "zod";
 
-const PORT_SCHEMA = z.number().refine(value => {
+const PORT_SCHEMA = z.coerce.number().refine(value => {
   if (Number.isNaN(value) || value > 65355) throw new Error("Invalid port");
 
   return value;
@@ -12,7 +12,7 @@ const schema = z.object({
 
   DATABASE_URL: z.url(),
 
-  REDIS_HOST: z.url(),
+  REDIS_HOST: z.string(),
   REDIS_PORT: PORT_SCHEMA
 });
 
