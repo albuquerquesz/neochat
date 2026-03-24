@@ -8,12 +8,14 @@
     "@types/pg": "^8.20.0"
   },
   "scripts": {
-    "dev": "bun run --env-file .env src/app.ts"
+    "dev": "bun run --env-file .env src/app.ts",
+    "seed": "bun run --env-file .env src/common/seed.ts"
   },
   "peerDependencies": {
     "typescript": "^5"
   },
   "dependencies": {
+    "@faker-js/faker": "^10.4.0",
     "@prisma/adapter-pg": "^7.5.0",
     "@prisma/client": "^7.5.0",
     "fastify": "^5.8.2",
