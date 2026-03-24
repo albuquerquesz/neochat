@@ -3,8 +3,8 @@ import { Prisma } from "../../generated/prisma/client";
 
 const SESSION_COUNT = 5;
 export class SessionService {
-  async create({ userId }: Prisma.SessionCreateInput) {
-    if (count(userId) >= SESSION_COUNT) return { ok: false, data: null };
+  async create(data: Prisma.SessionCreateInput) {
+    if (await this.count(data.userId) >= SESSION_COUNT) return { ok: false, data: null };
 
     return db.session.create({ data });
   }
