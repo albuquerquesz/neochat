@@ -1,37 +1,41 @@
 import { db } from "../../common/prisma";
 import { Prisma } from "../../generated/prisma/client";
 
+const SESSION_COUNT = 5;
 export class SessionService {
-  async create(data: Prisma.SessionCreateInput) {
+  async create({ userId }: Prisma.SessionCreateInput) {
+    if (count(userId) >= SESSION_COUNT) return { ok: false, data: null };
+
     return db.session.create({ data });
   }
 
-  async findMany(args?: Prisma.SessionFindManyArgs) {
-    return db.session.findMany(args);
-  }
-
-  async findFirst(args: Prisma.SessionFindFirstArgs) {
-    return db.session.findFirst(args);
-  }
-
-  async findUnique(args: Prisma.SessionFindUniqueArgs) {
-    return db.session.findUnique(args);
+  async list(userId: string, limit = 5) {
+    return db.session.findMany({
+      where: {
+        userId,
+      },
+      take: limit,
+    });
   }
 
   async update(args: Prisma.SessionUpdateArgs) {
     return db.session.update(args);
   }
 
-  async delete(args: Prisma.SessionDeleteArgs) {
-    return db.session.delete(args);
+  async delete(id?: string) {
+    if (!id) {
+      return db.session.deleteMany({});
+    }
+
+    return db.session.delete({ where: { id } });
   }
 
   async deleteMany(args?: Prisma.SessionDeleteManyArgs) {
     return db.session.deleteMany(args);
   }
 
-  async count(args?: Prisma.SessionCountArgs) {
-    return db.session.count(args);
+  async count(userId: string) {
+    return db.session.count({ where: { userId } });
   }
 }
 
