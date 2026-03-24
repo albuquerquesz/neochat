@@ -4,7 +4,8 @@
   "type": "module",
   "private": true,
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "@types/pg": "^8.20.0"
   },
   "scripts": {
     "dev": "bun run --env-file .env src/app.ts"
@@ -13,9 +14,11 @@
     "typescript": "^5"
   },
   "dependencies": {
+    "@prisma/adapter-pg": "^7.5.0",
     "@prisma/client": "^7.5.0",
     "fastify": "^5.8.2",
     "fastify-type-provider-zod": "^6.1.0",
+    "pg": "^8.20.0",
     "prisma": "^7.5.0",
     "zod": "^4.3.6"
   }
